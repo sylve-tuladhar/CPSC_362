@@ -10,9 +10,13 @@ A portfolio-building site allowing users to quickly create and customize a profe
 - HTML/CSS
 - JavaScript
 
-## Main Framework & Design Tool
+## Main Framework, Development & Design Tool
 - React
+- Vite
 - Figma
 
 ## IDE
 - Visual Studio Code
+
+## Getting Started
+Install Node.js and npm 
