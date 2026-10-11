@@ -1,5 +1,8 @@
 import "./HomePage.css";
 import { Link } from "react-router-dom";
+import artisticTemplateImage from "../assets/Artistic.png";
+import modernTemplateImage from "../assets/Modern.png";
+import professionalTemplateImage from "../assets/Professional.png";
 
 // Data for the features section of the homepage
 const features = [
@@ -68,12 +71,12 @@ function HomePage() {
               <span />
               <span />
               <span />
-              <div>yourportfolio.com</div>
+              <div>portfoliobuilder.com</div>
             </div>
 
             <div className="preview-content">
               <div className="preview-navigation">
-                <strong>AM.</strong>
+                <strong>BRANDING</strong>
                 <span>Work&nbsp;&nbsp; About&nbsp;&nbsp; Contact</span>
               </div>
 
@@ -103,7 +106,7 @@ function HomePage() {
           <div className="template-grid">
             <article className="template-card">
               <div className="template-image template-minimal">
-                <span>Modern</span>
+                <img src={modernTemplateImage} alt="Modern template preview" />
               </div>
               <h3>Modern</h3>
               <p>A clean and contemporary look with bold typography.</p>
@@ -111,15 +114,18 @@ function HomePage() {
 
             <article className="template-card">
               <div className="template-image template-bold">
-                <span>Artistic</span>
+                <img src={artisticTemplateImage} alt="Artistic template preview" />
               </div>
               <h3>Artistic</h3>
-              <p>An expressive and colorful layout good for creative work.</p>
+              <p>An expressive and unique layout good for creative work.</p>
             </article>
 
             <article className="template-card">
               <div className="template-image template-clean">
-                <span>Professional</span>
+                <img
+                  src={professionalTemplateImage}
+                  alt="Professional template preview"
+                />
               </div>
               <h3>Professional</h3>
               <p>A polished layout with structured sections.</p>
@@ -130,7 +136,7 @@ function HomePage() {
         <section className="features" id="features">
           <div className="features-intro">
             <p className="eyebrow">How it works</p>
-            <h2>From blank page to polished portfolio.</h2>
+            <h2>From a blank page to a polished portfolio.</h2>
           </div>
 
           <div className="feature-list">
