@@ -4,7 +4,9 @@ A portfolio-building site allowing users to quickly create and customize a profe
 
 ## Features
 - Choose from multiple provided portfolio templates
-- Customizing your digital portfolio with ease
+- Customize your portfolio name, introduction, accent and background colors, and font
+- See changes in a live portfolio preview
+- Keep customizations saved in this browser between visits
 
 ## Languages
 - HTML/CSS
