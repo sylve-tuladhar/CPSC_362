@@ -1,0 +1,488 @@
+.template-gallery-page {
+  min-height: 100vh;
+  background: #f7f8f3;
+  color: #17201d;
+  font-family: Inter, Arial, sans-serif;
+}
+
+/* HEADER — MATCHES HOMEPAGE */
+
+.gallery-navbar {
+  width: min(1180px, calc(100% - 48px));
+  min-height: 82px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gallery-logo {
+  color: #17201d;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  text-decoration: none;
+}
+
+.gallery-logo span {
+  color: #6847f5;
+}
+
+.gallery-navbar nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.gallery-navbar nav a {
+  color: #17201d;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.gallery-navbar nav .gallery-start-button {
+  padding: 11px 20px;
+  border: 0;
+  border-radius: 999px;
+
+  color: white;
+  background: #17201d;
+  text-decoration: none;
+}
+
+/* RESPONSIVE HEADER */
+
+@media (max-width: 850px) {
+  .gallery-navbar nav a {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-navbar {
+    width: min(100% - 32px, 1180px);
+  }
+}
+
+.gallery-main {
+  padding: 90px 5%;
+}
+
+.gallery-eyebrow {
+  color: #6847f5;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.gallery-main h1 {
+  max-width: 700px;
+  font-size: clamp(42px, 5vw, 70px);
+  line-height: 1.1;
+  letter-spacing: -3px;
+  margin: 25px 0;
+}
+
+.gallery-main h1 em {
+  color: #6847f5;
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+.gallery-description {
+  color: #68716d;
+  max-width: 500px;
+  line-height: 1.7;
+}
+
+.gallery-placeholder {
+  margin-top: 70px;
+  padding: 80px 30px;
+  background: white;
+  border: 1px solid #dde2da;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.gallery-placeholder h2 {
+  font-size: 28px;
+}
+
+.gallery-placeholder p {
+  color: #68716d;
+}
+
+@media (max-width: 600px) {
+  .gallery-navbar {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .gallery-navbar nav {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .gallery-main {
+    padding: 50px 5%;
+  }
+
+  .gallery-main h1 {
+    letter-spacing: -2px;
+  }
+}
+
+/* ========================================
+   TEMPLATE GALLERY SECTION
+======================================== */
+
+.gallery-templates-section {
+  padding: 50px 0 100px;
+}
+
+.gallery-section-heading {
+  margin-bottom: 35px;
+}
+
+.gallery-section-heading h2 {
+  margin: 14px 0 10px;
+  color: #000;
+  font-size: clamp(2.25rem, 4vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.055em;
+}
+
+.gallery-section-heading > div > p:last-child {
+  color: #68716d;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+/* ========================================
+   TEMPLATE GRID
+======================================== */
+
+.gallery-template-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 35px 22px;
+}
+
+.gallery-template-card {
+  min-width: 0;
+}
+
+/* ========================================
+   TEMPLATE THUMBNAILS
+======================================== */
+
+.gallery-template-thumbnail {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 310px;
+  padding: 28px;
+
+  overflow: hidden;
+  border-radius: 14px;
+
+  transition: transform 180ms ease;
+}
+
+.gallery-template-card:hover .gallery-template-thumbnail {
+  transform: translateY(-5px);
+}
+
+.gallery-template-mini {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: #fff;
+  color: #17201d;
+
+  overflow: hidden;
+}
+
+.gallery-mini-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.gallery-mini-content {
+  margin-top: auto;
+  padding: 16px 0;
+}
+
+.gallery-mini-content p {
+  margin: 0 0 8px;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.gallery-mini-content h3 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.gallery-mini-content > span {
+  font-size: 9px;
+}
+
+.gallery-mini-projects {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 8px;
+  height: 65px;
+  flex-shrink: 0;
+}
+
+.gallery-mini-projects div {
+  border-radius: 2px;
+}
+
+.gallery-category-label {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+
+  padding: 7px 12px;
+
+  border-radius: 999px;
+  background: #fff;
+
+  color: #17201d;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ========================================
+   SIX DIFFERENT TEMPLATE STYLES
+======================================== */
+
+/* 1. Minimal Studio */
+
+.gallery-style-minimal .gallery-template-mini {
+  background: #f8f7f3;
+}
+
+.gallery-style-minimal .gallery-mini-content h3 {
+  font-family: Georgia, serif;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+/* 2. Creative Zine */
+
+.gallery-style-zine .gallery-template-mini {
+  background: #18314f;
+  color: #fff;
+  transform: rotate(-3deg);
+}
+
+.gallery-style-zine .gallery-mini-content h3 {
+  color: #f6dcd4;
+  font-size: 32px;
+  text-transform: uppercase;
+}
+
+.gallery-style-zine .gallery-mini-projects {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* 3. Clean Portfolio */
+
+.gallery-style-clean .gallery-template-mini {
+  background: #fff;
+  border: 1px solid #dde2da;
+}
+
+.gallery-style-clean .gallery-mini-content h3 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.gallery-style-clean .gallery-mini-projects {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* 4. Visual Story */
+
+.gallery-style-visual .gallery-template-mini {
+  background: #1e596c;
+  color: white;
+}
+
+.gallery-style-visual .gallery-mini-content h3 {
+  font-family: Georgia, serif;
+  font-size: 32px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* 5. Bold Type */
+
+.gallery-style-bold .gallery-template-mini {
+  background: #e8795b;
+  color: #183153;
+}
+
+.gallery-style-bold .gallery-mini-content h3 {
+  font-size: 39px;
+  font-weight: 900;
+  line-height: 0.85;
+  text-transform: uppercase;
+}
+
+/* 6. Soft Grid */
+
+.gallery-style-grid .gallery-template-mini {
+  background: #f8f7f3;
+}
+
+.gallery-style-grid .gallery-mini-content h3 {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.gallery-style-grid .gallery-mini-projects {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* ========================================
+   TEMPLATE INFORMATION
+======================================== */
+
+.gallery-template-info {
+  padding-top: 18px;
+}
+
+.gallery-template-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.gallery-template-title-row h3 {
+  margin: 0;
+  color: #17201d;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.gallery-color-palette {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.gallery-color-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.gallery-template-info > p {
+  margin: 9px 0 18px;
+  color: #68716d;
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.gallery-template-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.gallery-preview-btn,
+.gallery-use-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 43px;
+  padding: 10px 18px;
+
+  border-radius: 999px;
+
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.gallery-preview-btn {
+  flex: 1;
+  border: 1px solid #17201d;
+  background: transparent;
+  color: #17201d;
+}
+
+.gallery-use-btn {
+  flex: 1;
+  border: 1px solid #17201d;
+  background: #17201d;
+  color: white;
+}
+
+.gallery-preview-btn:hover {
+  background: #e8e6df;
+}
+
+.gallery-use-btn:hover {
+  background: #6847f5;
+  border-color: #6847f5;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+  .gallery-template-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-template-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .gallery-template-thumbnail {
+    height: 330px;
+  }
+
+  .gallery-templates-section {
+    padding: 30px 0 70px;
+  }
+}
