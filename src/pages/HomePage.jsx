@@ -25,14 +25,14 @@ function HomePage() {
   return (
     <div className="homepage">
       <header className="navbar">
-        <a className="logo" href="/">
+        <a className="logo" href="/homepage">
           PortfolioBuilder<span>.</span>
         </a>
 
         <nav aria-label="Main navigation">
-          <Link to="/template-gallery">Templates</Link>
+          <a href="#templates">Templates</a>
           <a href="#features">How it works</a>
-          <Link className="nav-button" to="/templates">
+          <Link className="nav-button" to="/template-gallery">
             Start building
           </Link>
         </nav>
@@ -68,12 +68,12 @@ function HomePage() {
               <span />
               <span />
               <span />
-              <div>yourportfolio.com</div>
+              <div>portfoliobuilder.com</div>
             </div>
 
             <div className="preview-content">
               <div className="preview-navigation">
-                <strong>AM.</strong>
+                <strong>BRANDING</strong>
                 <span>Work&nbsp;&nbsp; About&nbsp;&nbsp; Contact</span>
               </div>
 
@@ -102,27 +102,72 @@ function HomePage() {
 
           <div className="template-grid">
             <article className="template-card">
-              <div className="template-image template-minimal">
-                <span>Modern</span>
+              <div className="template-image template-minimal" aria-label="Minimal Studio template preview">
+                <div className="template-preview-mini">
+                  <div className="template-preview-nav">
+                    <span>PortfolioBuilder.</span>
+                    <span>MENU ↗</span>
+                  </div>
+                  <div className="template-preview-content">
+                    <p>SELECTED WORK / 2026</p>
+                    <h3>Minimal Studio</h3>
+                    <span>Creative work &amp; selected projects</span>
+                  </div>
+                  <div className="template-preview-projects">
+                    <div />
+                    <div />
+                  </div>
+                </div>
+                <span className="template-category-label">Minimal</span>
               </div>
-              <h3>Modern</h3>
-              <p>A clean and contemporary look with bold typography.</p>
+              <h3>Minimal Studio</h3>
+              <p>A clean portfolio with elegant typography.</p>
             </article>
 
             <article className="template-card">
-              <div className="template-image template-bold">
-                <span>Artistic</span>
+              <div className="template-image template-bold" aria-label="Creative Zine template preview">
+                <div className="template-preview-mini">
+                  <div className="template-preview-nav">
+                    <span>PortfolioBuilder.</span>
+                    <span>MENU ↗</span>
+                  </div>
+                  <div className="template-preview-content">
+                    <p>SELECTED WORK / 2026</p>
+                    <h3>Creative Zine</h3>
+                    <span>Creative work &amp; selected projects</span>
+                  </div>
+                  <div className="template-preview-projects">
+                    <div />
+                    <div />
+                  </div>
+                </div>
+                <span className="template-category-label">Artistic</span>
               </div>
-              <h3>Artistic</h3>
-              <p>An expressive and colorful layout good for creative work.</p>
+              <h3>Creative Zine</h3>
+              <p>A bold editorial layout for creative minds.</p>
             </article>
 
             <article className="template-card">
-              <div className="template-image template-clean">
-                <span>Professional</span>
+              <div className="template-image template-clean" aria-label="Clean Portfolio template preview">
+                <div className="template-preview-mini">
+                  <div className="template-preview-nav">
+                    <span>PortfolioBuilder.</span>
+                    <span>MENU ↗</span>
+                  </div>
+                  <div className="template-preview-content">
+                    <p>SELECTED WORK / 2026</p>
+                    <h3>Clean Portfolio</h3>
+                    <span>Creative work &amp; selected projects</span>
+                  </div>
+                  <div className="template-preview-projects">
+                    <div />
+                    <div />
+                  </div>
+                </div>
+                <span className="template-category-label">Professional</span>
               </div>
-              <h3>Professional</h3>
-              <p>A polished layout with structured sections.</p>
+              <h3>Clean Portfolio</h3>
+              <p>A polished portfolio for internships and jobs.</p>
             </article>
           </div>
         </section>
@@ -130,7 +175,7 @@ function HomePage() {
         <section className="features" id="features">
           <div className="features-intro">
             <p className="eyebrow">How it works</p>
-            <h2>From blank page to polished portfolio.</h2>
+            <h2>From a blank page to a polished portfolio.</h2>
           </div>
 
           <div className="feature-list">
@@ -149,16 +194,18 @@ function HomePage() {
 
       <div className="homepage-conclusion">
         <h2>Ready to build your portfolio?</h2>
-        <button className="primary-button" type="button">
-          Get Started Free
-        </button>
-        <Link className="outline-button" to="/templates">
-          View Templates
-        </Link>
+        <div className="conclusion-actions">
+          <Link className="primary-button" to="/editor">
+            Get Started
+          </Link>
+          <Link className="outline-button" to="/template-gallery">
+            View Templates
+          </Link>
+        </div>
       </div>
 
       <footer>
-        <a className="logo" href="/">
+        <a className="logo" href="/homepage">
           PortfolioBuilder<span>.</span>
         </a>
         <p>Build something worth sharing.</p>

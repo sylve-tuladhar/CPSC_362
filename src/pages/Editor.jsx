@@ -1,5 +1,6 @@
 import "./Editor.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const STORAGE_KEY = "portfolio-customization";
 
@@ -12,9 +13,13 @@ const DEFAULT_SETTINGS = {
 };
 
 const FONT_OPTIONS = [
-  { label: "Modern sans serif", value: "Arial, sans-serif" },
-  { label: "Classic serif", value: "Georgia, serif" },
-  { label: "Monospace", value: "ui-monospace, monospace" },
+  { label: "Arial", value: "Arial, sans-serif" },
+  { label: "Verdana", value: "Verdana, sans-serif" },
+  { label: "Trebuchet MS", value: "Trebuchet MS, sans-serif" },
+  { label: "Georgia", value: "Georgia, serif" },
+  { label: "Times New Roman", value: "Times New Roman, serif" },
+  { label: "ui-monospace", value: "ui-monospace, monospace" },
+  { label: "Courier New", value: "Courier New, monospace" },
 ];
 
 function readSettings() {
@@ -84,6 +89,14 @@ function Editor() {
   return (
     <section className="editor-page">
       <div className="editor" aria-labelledby="editor-title">
+        <div className="editor-topbar">
+          <Link className="editor-logo" to="/homepage">
+            PortfolioBuilder<span>.</span>
+          </Link>
+          <Link className="home-link" to="/homepage">
+            Back to Home
+          </Link>
+        </div>
         <header className="editor-heading">
           <p className="editor-eyebrow">Make it yours</p>
           <h1 id="editor-title">Personalize your portfolio</h1>
@@ -143,6 +156,13 @@ function Editor() {
                 ))}
               </select>
             </label>
+            <div className="template-cta">
+              <h2>Ready to continue?</h2>
+              <Link className="choose-template-button" to="/template-gallery">
+                Choose a Template
+              </Link>
+            </div>
+
             <button className="reset-customization" type="button" onClick={resetSettings}>
               Reset to defaults
             </button>

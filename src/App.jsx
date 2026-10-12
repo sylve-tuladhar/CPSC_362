@@ -4,27 +4,15 @@ import TemplateGallery from "./pages/TemplateGallery";
 import Editor from "./pages/Editor";
 import Preview from "./pages/Preview";
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-/*
-function App() {
-  // Temporary container for the app content
-  return (
-    <div className="app"> 
-      <HomePage />
-      <Templates />
-      <Editor />
-      <Preview />
-    </div>
-  );
-}
-  */
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 function App() {
   // Temporary container for the app content
   return (
     <BrowserRouter>
     <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Navigate to="/homepage" replace />} />
+        <Route path="/homepage" element={<HomePage />} />
         <Route path="/templates" element={<Templates />} />
         <Route path="/template-gallery" element={<TemplateGallery />} />
         <Route path="/editor" element={<Editor />} />

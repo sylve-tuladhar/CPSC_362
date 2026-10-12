@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "./TemplateGallery.css";
 
-
 const portfolioTemplates = [
   {
     id: 1,
@@ -65,15 +64,13 @@ function TemplateGallery() {
     <div className="template-gallery-page">
 
       <header className="gallery-navbar">
-        <Link className="gallery-logo" to="/">
+        <Link className="gallery-logo" to="/homepage">
             PortfolioBuilder<span>.</span>
         </Link>
         
         <nav aria-label="Main navigation">
-            <Link to="/template-gallery">Templates</Link>
-            <Link to="/#features">How it works</Link>
-            <Link className="gallery-start-button" to="/templates">
-                Start building
+            <Link className="gallery-start-button" to="/homepage">
+              Return to Home
             </Link>
         </nav>
       </header>
@@ -117,7 +114,7 @@ function TemplateGallery() {
           <div className="gallery-template-mini">
 
             <div className="gallery-mini-nav">
-              <span>PORTFOLIO.</span>
+              <span>PortfolioBuilder.</span>
               <span>MENU ↗</span>
             </div>
 
@@ -170,7 +167,7 @@ function TemplateGallery() {
             </button>
 
             <Link
-              to="/templates"
+              to="/editor"
               className="gallery-use-btn"
             >
               Use Template →

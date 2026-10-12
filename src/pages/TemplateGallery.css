@@ -1,6 +1,6 @@
 .template-gallery-page {
   min-height: 100vh;
-  background: #f7f8f3;
+  background: #ffffff;
   color: #17201d;
   font-family: Inter, Arial, sans-serif;
 }
@@ -82,7 +82,8 @@
   font-size: clamp(42px, 5vw, 70px);
   line-height: 1.1;
   letter-spacing: -3px;
-  margin: 25px 0;
+  margin: 25px auto;
+  color: #000;
 }
 
 .gallery-main h1 em {
@@ -92,6 +93,7 @@
 }
 
 .gallery-description {
+  margin: 0 auto;
   color: #68716d;
   max-width: 500px;
   line-height: 1.7;
