@@ -1,5 +1,5 @@
 :root {
-  --background: #f7f8f3;
+  --background: #ffffff;
   --surface: #ffffff;
   --text: #17201d;
   --muted: #68716d;
@@ -44,26 +44,45 @@ a {
   text-align: center;
 }
 
-.home-link {
-  display: inline-block;
+.editor-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 28px;
-  padding: 10px 18px;
-  border: 1px solid var(--text);
+}
+
+.editor-logo {
+  color: #17201d;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  text-decoration: none;
+}
+
+.editor-logo span {
+  color: #6847f5;
+}
+
+.home-link {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  padding: 11px 20px;
+  border: 0;
   border-radius: 999px;
-  color: var(--text);
+  color: #fff;
+  background: #17201d;
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
   transition:
     color 0.2s ease,
-    background-color 0.2s ease,
-    border-color 0.2s ease;
+    background-color 0.2s ease;
 }
 
 .home-link:hover {
-  border-color: var(--purple);
   color: #fff;
-  background: var(--purple);
+  background: #2b3631;
 }
 
 .home-link:focus-visible {

@@ -89,9 +89,14 @@ function Editor() {
   return (
     <section className="editor-page">
       <div className="editor" aria-labelledby="editor-title">
-        <Link className="home-link" to="/">
-          Back to Home
-        </Link>
+        <div className="editor-topbar">
+          <Link className="editor-logo" to="/homepage">
+            PortfolioBuilder<span>.</span>
+          </Link>
+          <Link className="home-link" to="/homepage">
+            Back to Home
+          </Link>
+        </div>
         <header className="editor-heading">
           <p className="editor-eyebrow">Make it yours</p>
           <h1 id="editor-title">Personalize your portfolio</h1>
@@ -153,7 +158,7 @@ function Editor() {
             </label>
             <div className="template-cta">
               <h2>Ready to continue?</h2>
-              <Link className="choose-template-button" to="/templates">
+              <Link className="choose-template-button" to="/template-gallery">
                 Choose a Template
               </Link>
             </div>
