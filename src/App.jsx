@@ -1,5 +1,6 @@
 import HomePage from "./pages/HomePage";
 import Templates from "./pages/Templates";
+import TemplateGallery from "./pages/TemplateGallery";
 import Editor from "./pages/Editor";
 import Preview from "./pages/Preview";
 import "./App.css";
@@ -25,6 +26,7 @@ function App() {
     <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/templates" element={<Templates />} />
+        <Route path="/template-gallery" element={<TemplateGallery />} />
         <Route path="/editor" element={<Editor />} />
         <Route path="/preview" element={<Preview />} />
     </Routes>

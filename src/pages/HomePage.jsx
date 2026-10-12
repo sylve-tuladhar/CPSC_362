@@ -30,7 +30,7 @@ function HomePage() {
         </a>
 
         <nav aria-label="Main navigation">
-          <a href="#templates">Templates</a>
+          <Link to="/template-gallery">Templates</Link>
           <a href="#features">How it works</a>
           <Link className="nav-button" to="/templates">
             Start building
@@ -53,7 +53,7 @@ function HomePage() {
             </p>
 
             <div className="hero-actions">
-              <Link className="primary-button" to="/templates">
+              <Link className="primary-button" to="/template-gallery">
                 Browse templates
               </Link>
 
@@ -95,7 +95,7 @@ function HomePage() {
               <h2>Templates for every kind of creator.</h2>
             </div>
 
-            <Link className="outline-button" to="/templates">
+            <Link className="outline-button" to="/template-gallery">
               View all templates
             </Link>
           </div>
