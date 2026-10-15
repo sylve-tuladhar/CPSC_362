@@ -115,7 +115,7 @@ function TemplateGallery() {
 
             <div className="gallery-mini-nav">
               <span>PortfolioBuilder.</span>
-              <span>MENU ↗</span>
+              <span>MENU</span>
             </div>
 
             <div className="gallery-mini-content">

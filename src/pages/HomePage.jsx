@@ -106,7 +106,7 @@ function HomePage() {
                 <div className="template-preview-mini">
                   <div className="template-preview-nav">
                     <span>PortfolioBuilder.</span>
-                    <span>MENU ↗</span>
+                    <span>MENU</span>
                   </div>
                   <div className="template-preview-content">
                     <p>SELECTED WORK / 2026</p>
@@ -129,7 +129,7 @@ function HomePage() {
                 <div className="template-preview-mini">
                   <div className="template-preview-nav">
                     <span>PortfolioBuilder.</span>
-                    <span>MENU ↗</span>
+                    <span>MENU</span>
                   </div>
                   <div className="template-preview-content">
                     <p>SELECTED WORK / 2026</p>
@@ -152,7 +152,7 @@ function HomePage() {
                 <div className="template-preview-mini">
                   <div className="template-preview-nav">
                     <span>PortfolioBuilder.</span>
-                    <span>MENU ↗</span>
+                    <span>MENU</span>
                   </div>
                   <div className="template-preview-content">
                     <p>SELECTED WORK / 2026</p>
@@ -195,11 +195,11 @@ function HomePage() {
       <div className="homepage-conclusion">
         <h2>Ready to build your portfolio?</h2>
         <div className="conclusion-actions">
-          <Link className="primary-button" to="/editor">
-            Get Started
-          </Link>
-          <Link className="outline-button" to="/template-gallery">
+          <Link className="primary-button" to="/template-gallery">
             View Templates
+          </Link>
+          <Link className="outline-button" to="/your-projects">
+            Your Projects
           </Link>
         </div>
       </div>

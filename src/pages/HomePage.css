@@ -20,7 +20,7 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--text);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 button,
@@ -524,8 +524,14 @@ footer p:last-child {
 }
 
 @media (max-width: 850px) {
-  .navbar nav a {
-    display: none;
+  .navbar {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px 0;
+  }
+
+  .navbar nav {
+    gap: 18px;
   }
 
   .hero,
@@ -558,6 +564,21 @@ footer p:last-child {
   .features,
   footer {
     width: min(100% - 32px, 1180px);
+  }
+
+  .navbar nav {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .navbar nav a {
+    font-size: 0.85rem;
+  }
+
+  .navbar nav .nav-button {
+    padding: 10px 14px;
   }
 
   .hero h1 {
