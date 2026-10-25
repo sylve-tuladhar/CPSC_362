@@ -1,5 +1,6 @@
 import "./YourProjects.css";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getCurrentUser,
   getProjectsForUser,
@@ -7,18 +8,17 @@ import {
   updateProjectName,
   deleteProject,
 } from "../auth";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 function YourProjects() {
   const navigate = useNavigate();
   const username = getCurrentUser();
-  const [projects, setProjects] = useState(() => getProjectsForUser(username));
+  const [initialProjects] = useState(() => getProjectsForUser(username));
+  const [projects, setProjects] = useState(initialProjects);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const [editingProjectId, setEditingProjectId] = useState(null);
   const [projectNames, setProjectNames] = useState(() =>
     Object.fromEntries(
-      getProjectsForUser(username).map((project) => [
+      initialProjects.map((project) => [
         project.id,
         project.name || project.template,
       ]),
@@ -61,31 +61,31 @@ function YourProjects() {
   return (
     <div className="your-projects">
       <header className="navbar">
-      <Link className="logo" to="/homepage">
-        PortfolioBuilder<span>.</span>
-      </Link>
+        <Link className="logo" to="/homepage">
+          PortfolioBuilder<span>.</span>
+        </Link>
 
-      <nav aria-label="Main navigation">
-        <Link to="/homepage">Return Home</Link>
-        <Link to="/template-gallery">Templates</Link>
-        <div className="account-menu">
-          <button
-            className="welcome-user"
-            type="button"
-            aria-expanded={accountMenuOpen}
-            onClick={() => setAccountMenuOpen((isOpen) => !isOpen)}
-          >
-            Hi, {username}
-          </button>
-          {accountMenuOpen && (
-            <div className="account-dropdown">
-              <button type="button" onClick={handleLogout}>
-                Log out
-              </button>
-            </div>
-          )}
-        </div>
-      </nav>
+        <nav aria-label="Main navigation">
+          <Link to="/homepage">Return Home</Link>
+          <Link to="/template-gallery">Templates</Link>
+          <div className="account-menu">
+            <button
+              className="welcome-user"
+              type="button"
+              aria-expanded={accountMenuOpen}
+              onClick={() => setAccountMenuOpen((isOpen) => !isOpen)}
+            >
+              Hi, {username}
+            </button>
+            {accountMenuOpen && (
+              <div className="account-dropdown">
+                <button type="button" onClick={handleLogout}>
+                  Log out
+                </button>
+              </div>
+            )}
+          </div>
+        </nav>
       </header>
 
       <main>
@@ -94,8 +94,9 @@ function YourProjects() {
             <p className="eyebrow">View all your projects with ease</p>
             <h1>Your Projects</h1>
             <p className="hero-description">
-              Here, you can view all the projects you've created, manage them, and make updates as needed.
-              </p>
+              Here, you can view all the projects you've created, manage them,
+              and make updates as needed.
+            </p>
             {projects.length > 0 ? (
               <div className="projects-grid">
                 {projects.map((project) => (
@@ -145,7 +146,10 @@ function YourProjects() {
                           }}
                         >
                           <h3>{projectNames[project.id]}</h3>
-                          <p>Created {new Date(project.createdAt).toLocaleDateString()}</p>
+                          <p>
+                            Created{" "}
+                            {new Date(project.createdAt).toLocaleDateString()}
+                          </p>
                           <span>Continue editing →</span>
                         </Link>
                         <button
@@ -187,7 +191,6 @@ function YourProjects() {
           <p>&copy; 2026 PortfolioBuilder. All rights reserved.</p>
         </div>
       </footer>
-      
     </div>
   );
 }
