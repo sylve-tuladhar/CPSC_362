@@ -20,7 +20,7 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--text);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 button,
@@ -90,6 +90,84 @@ footer {
   color: rgb(255, 255, 255);
   background: var(--text);
   text-decoration: none;
+}
+
+.navbar nav .user-link {
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.account-menu {
+  position: relative;
+  margin-left: auto;
+}
+
+.navbar nav .user-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 14px 8px 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar nav .user-link::before {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--purple);
+  content: "✦";
+  font-size: 0.8rem;
+}
+
+.navbar nav .user-link:hover {
+  border-color: var(--purple);
+  background: #f7f4ff;
+  transform: translateY(-1px);
+}
+
+.account-dropdown {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 8px);
+  right: 0;
+  display: grid;
+  min-width: 150px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 8px 20px rgb(23 32 29 / 12%);
+}
+
+.account-dropdown a,
+.account-dropdown button {
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--text);
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.account-dropdown a:hover,
+.account-dropdown button:hover {
+  background: #f7f4ff;
 }
 
 .hero {
@@ -524,8 +602,14 @@ footer p:last-child {
 }
 
 @media (max-width: 850px) {
-  .navbar nav a {
-    display: none;
+  .navbar {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px 0;
+  }
+
+  .navbar nav {
+    gap: 18px;
   }
 
   .hero,
@@ -558,6 +642,21 @@ footer p:last-child {
   .features,
   footer {
     width: min(100% - 32px, 1180px);
+  }
+
+  .navbar nav {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .navbar nav a {
+    font-size: 0.85rem;
+  }
+
+  .navbar nav .nav-button {
+    padding: 10px 14px;
   }
 
   .hero h1 {

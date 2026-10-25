@@ -1,5 +1,7 @@
 import "./HomePage.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getCurrentUser, logout } from "../auth";
+import { useState } from "react";
 
 // Data for the features section of the homepage
 const features = [
@@ -22,6 +24,16 @@ const features = [
 
 // Main component for the homepage
 function HomePage() {
+  const [username, setUsername] = useState(getCurrentUser);
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    setUsername(null);
+    navigate("/homepage");
+  }
+
   return (
     <div className="homepage">
       <header className="navbar">
@@ -35,6 +47,32 @@ function HomePage() {
           <Link className="nav-button" to="/template-gallery">
             Start building
           </Link>
+          {username ? (
+            <div className="account-menu">
+              <button
+                className="user-link"
+                type="button"
+                aria-expanded={accountMenuOpen}
+                onClick={() => setAccountMenuOpen((isOpen) => !isOpen)}
+              >
+                Hi, {username}
+              </button>
+              {accountMenuOpen && (
+                <div className="account-dropdown">
+                  <Link to="/your-projects" onClick={() => setAccountMenuOpen(false)}>
+                    Your Projects
+                  </Link>
+                  <button type="button" onClick={handleLogout}>
+                    Log out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link className="login-link" to="/login">
+              Log in
+            </Link>
+          )}
         </nav>
       </header>
 
@@ -106,7 +144,7 @@ function HomePage() {
                 <div className="template-preview-mini">
                   <div className="template-preview-nav">
                     <span>PortfolioBuilder.</span>
-                    <span>MENU ↗</span>
+                    <span>MENU</span>
                   </div>
                   <div className="template-preview-content">
                     <p>SELECTED WORK / 2026</p>
@@ -129,7 +167,7 @@ function HomePage() {
                 <div className="template-preview-mini">
                   <div className="template-preview-nav">
                     <span>PortfolioBuilder.</span>
-                    <span>MENU ↗</span>
+                    <span>MENU</span>
                   </div>
                   <div className="template-preview-content">
                     <p>SELECTED WORK / 2026</p>
@@ -152,7 +190,7 @@ function HomePage() {
                 <div className="template-preview-mini">
                   <div className="template-preview-nav">
                     <span>PortfolioBuilder.</span>
-                    <span>MENU ↗</span>
+                    <span>MENU</span>
                   </div>
                   <div className="template-preview-content">
                     <p>SELECTED WORK / 2026</p>
@@ -195,11 +233,11 @@ function HomePage() {
       <div className="homepage-conclusion">
         <h2>Ready to build your portfolio?</h2>
         <div className="conclusion-actions">
-          <Link className="primary-button" to="/editor">
-            Get Started
-          </Link>
-          <Link className="outline-button" to="/template-gallery">
+          <Link className="primary-button" to="/template-gallery">
             View Templates
+          </Link>
+          <Link className="outline-button" to="/your-projects">
+            Your Projects
           </Link>
         </div>
       </div>
