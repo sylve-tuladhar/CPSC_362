@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./TemplateGallery.css";
+import { createProject, getCurrentUser } from "../auth";
 
 const portfolioTemplates = [
   {
@@ -60,6 +61,27 @@ const portfolioTemplates = [
 
 
 function TemplateGallery() {
+  const navigate = useNavigate();
+  const username = getCurrentUser();
+
+  function handleUseTemplate(template) {
+    const username = getCurrentUser();
+
+    if (!username) {
+      navigate("/login", { state: { from: "/template-gallery" } });
+      return;
+    }
+
+    const project = createProject(username, template);
+    navigate("/editor", {
+      state: {
+        template: template.name,
+        projectId: project.id,
+        isNewProject: true,
+      },
+    });
+  }
+
   return (
     <div className="template-gallery-page">
 
@@ -166,12 +188,13 @@ function TemplateGallery() {
               Preview
             </button>
 
-            <Link
-              to="/editor"
+            <button
+              type="button"
+              onClick={() => handleUseTemplate(template)}
               className="gallery-use-btn"
             >
-              Use Template →
-            </Link>
+              {username ? "Use Template →" : "Log in to use template"}
+            </button>
 
           </div>
 

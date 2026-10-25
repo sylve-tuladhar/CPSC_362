@@ -1,5 +1,7 @@
 import "./HomePage.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getCurrentUser, logout } from "../auth";
+import { useState } from "react";
 
 // Data for the features section of the homepage
 const features = [
@@ -22,6 +24,16 @@ const features = [
 
 // Main component for the homepage
 function HomePage() {
+  const [username, setUsername] = useState(getCurrentUser);
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    setUsername(null);
+    navigate("/homepage");
+  }
+
   return (
     <div className="homepage">
       <header className="navbar">
@@ -35,6 +47,32 @@ function HomePage() {
           <Link className="nav-button" to="/template-gallery">
             Start building
           </Link>
+          {username ? (
+            <div className="account-menu">
+              <button
+                className="user-link"
+                type="button"
+                aria-expanded={accountMenuOpen}
+                onClick={() => setAccountMenuOpen((isOpen) => !isOpen)}
+              >
+                Hi, {username}
+              </button>
+              {accountMenuOpen && (
+                <div className="account-dropdown">
+                  <Link to="/your-projects" onClick={() => setAccountMenuOpen(false)}>
+                    Your Projects
+                  </Link>
+                  <button type="button" onClick={handleLogout}>
+                    Log out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link className="login-link" to="/login">
+              Log in
+            </Link>
+          )}
         </nav>
       </header>
 

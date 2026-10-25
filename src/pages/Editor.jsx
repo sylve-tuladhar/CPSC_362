@@ -1,15 +1,26 @@
 import "./Editor.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const STORAGE_KEY = "portfolio-customization";
+const PROJECT_STORAGE_PREFIX = "portfolio-customization-project-";
 
 const DEFAULT_SETTINGS = {
+  template: "Portfolio",
   name: "Alex Morgan",
   headline: "Designer & developer creating thoughtful digital experiences.",
   accent: "#6d28d9",
   background: "#ffffff",
   font: "Arial, sans-serif",
+};
+
+const MINIMAL_STUDIO_SETTINGS = {
+  template: "Minimal Studio",
+  name: "Alex Morgan",
+  headline: "Designer & developer creating thoughtful digital experiences.",
+  accent: "#9caf88",
+  background: "#eae8e3",
+  font: "Georgia, serif",
 };
 
 const FONT_OPTIONS = [
@@ -22,10 +33,23 @@ const FONT_OPTIONS = [
   { label: "Courier New", value: "Courier New, monospace" },
 ];
 
-function readSettings() {
+function getStorageKey(projectId) {
+  return projectId
+    ? `${PROJECT_STORAGE_PREFIX}${projectId}`
+    : STORAGE_KEY;
+}
+
+function readSettings(templateName, projectId, isNewProject) {
+  const templateDefaults =
+    templateName === "Minimal Studio" ? MINIMAL_STUDIO_SETTINGS : DEFAULT_SETTINGS;
+
+  if (isNewProject) {
+    return { settings: templateDefaults, error: "" };
+  }
+
   try {
-    const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (!saved) return { settings: DEFAULT_SETTINGS, error: "" };
+    const saved = window.localStorage.getItem(getStorageKey(projectId));
+    if (!saved) return { settings: templateDefaults, error: "" };
 
     const parsed = JSON.parse(saved);
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
@@ -34,43 +58,56 @@ function readSettings() {
 
     return {
       settings: {
-        name: typeof parsed.name === "string" ? parsed.name : DEFAULT_SETTINGS.name,
+        template: templateName || (
+          typeof parsed.template === "string"
+            ? parsed.template
+            : templateDefaults.template
+        ),
+        name: typeof parsed.name === "string" ? parsed.name : templateDefaults.name,
         headline:
           typeof parsed.headline === "string"
             ? parsed.headline
-            : DEFAULT_SETTINGS.headline,
+            : templateDefaults.headline,
         accent:
           typeof parsed.accent === "string" && /^#[\da-f]{6}$/i.test(parsed.accent)
             ? parsed.accent
-            : DEFAULT_SETTINGS.accent,
+            : templateDefaults.accent,
         background:
           typeof parsed.background === "string" &&
           /^#[\da-f]{6}$/i.test(parsed.background)
             ? parsed.background
-            : DEFAULT_SETTINGS.background,
+            : templateDefaults.background,
         font: FONT_OPTIONS.some((option) => option.value === parsed.font)
           ? parsed.font
-          : DEFAULT_SETTINGS.font,
+          : templateDefaults.font,
       },
       error: "",
     };
   } catch (error) {
     return {
-      settings: DEFAULT_SETTINGS,
+      settings: templateDefaults,
       error: `Could not load saved customizations: ${error.message}`,
     };
   }
 }
 
 function Editor() {
-  const [initialState] = useState(readSettings);
+  const location = useLocation();
+  const selectedTemplate = location.state?.template;
+  const projectId = location.state?.projectId;
+  const [initialState] = useState(() =>
+    readSettings(selectedTemplate, projectId, location.state?.isNewProject),
+  );
   const [settings, setSettings] = useState(initialState.settings);
   const [storageError, setStorageError] = useState(initialState.error);
 
   function saveSettings(nextSettings) {
     setSettings(nextSettings);
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextSettings));
+      window.localStorage.setItem(
+        getStorageKey(projectId),
+        JSON.stringify(nextSettings),
+      );
       setStorageError("");
     } catch (error) {
       setStorageError(`Could not save customizations: ${error.message}`);
@@ -83,22 +120,39 @@ function Editor() {
   }
 
   function resetSettings() {
-    saveSettings(DEFAULT_SETTINGS);
+    saveSettings(
+      selectedTemplate === "Minimal Studio"
+        ? MINIMAL_STUDIO_SETTINGS
+        : DEFAULT_SETTINGS,
+    );
   }
 
   return (
-    <section className="editor-page">
+    <section
+      className={`editor-page ${
+        settings.template === "Minimal Studio" ? "minimal-studio-editor" : ""
+      }`}
+    >
       <div className="editor" aria-labelledby="editor-title">
         <div className="editor-topbar">
           <Link className="editor-logo" to="/homepage">
             PortfolioBuilder<span>.</span>
           </Link>
-          <Link className="home-link" to="/homepage">
-            Back to Home
-          </Link>
+          <div className="editor-actions">
+            <Link className="home-link" to="/homepage">
+              Back to Home
+            </Link>
+            <Link className="projects-link" to="/your-projects">
+              Your Projects
+            </Link>
+          </div>
         </div>
         <header className="editor-heading">
-          <p className="editor-eyebrow">Make it yours</p>
+          <p className="editor-eyebrow">
+            {location.state?.template
+              ? `${location.state.template} template`
+              : "Make it yours"}
+          </p>
           <h1 id="editor-title">Personalize your portfolio</h1>
           <p>Update your details and style. Your choices are saved on this device.</p>
         </header>
@@ -157,10 +211,8 @@ function Editor() {
               </select>
             </label>
             <div className="template-cta">
-              <h2>Ready to continue?</h2>
-              <Link className="choose-template-button" to="/template-gallery">
-                Choose a Template
-              </Link>
+              <h2>{settings.template} selected</h2>
+              <p>Customize your portfolio, then preview your finished project.</p>
             </div>
 
             <button className="reset-customization" type="button" onClick={resetSettings}>
@@ -174,7 +226,7 @@ function Editor() {
           </form>
 
           <section
-            className="portfolio-preview"
+            className={`portfolio-preview ${settings.template === "Minimal Studio" ? "minimal-studio-preview" : ""}`}
             aria-label="Live portfolio preview"
             style={{
               "--preview-accent": settings.accent,
@@ -186,16 +238,28 @@ function Editor() {
               <span className="preview-mark" aria-hidden="true">
                 {settings.name.trim().charAt(0).toUpperCase() || "A"}
               </span>
-              <span>PORTFOLIO</span>
+              <span>
+                {settings.template === "Minimal Studio"
+                  ? "SELECTED WORK / 2026"
+                  : "PORTFOLIO"}
+              </span>
             </div>
             <div className="preview-content">
-              <p className="preview-label">HELLO, I'M</p>
+              <p className="preview-label">
+                {settings.template === "Minimal Studio" ? "DESIGNER & DEVELOPER" : "HELLO, I'M"}
+              </p>
               <h2>{settings.name || "Your name"}</h2>
               <p className="preview-headline">
                 {settings.headline || "Add a short introduction about yourself."}
               </p>
+              {settings.template === "Minimal Studio" && (
+                <div className="minimal-project-grid" aria-label="Selected projects">
+                  <div className="minimal-project minimal-project-one">01 / Brand system</div>
+                  <div className="minimal-project minimal-project-two">02 / Digital product</div>
+                </div>
+              )}
               <button className="preview-contact" type="button">
-                Get in touch
+                {settings.template === "Minimal Studio" ? "View selected work" : "Get in touch"}
               </button>
             </div>
             <p className="preview-caption">Live preview</p>
