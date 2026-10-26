@@ -5,9 +5,9 @@
 
 .template-gallery-page {
   min-height: 100vh;
-  background: #f7f8f3;
+  background: #ffffff;
   color: #17201d;
-  font-family: Inter, Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .gallery-navbar {
@@ -73,7 +73,8 @@
   font-size: clamp(42px, 5vw, 70px);
   line-height: 1.1;
   letter-spacing: -3px;
-  margin: 25px 0;
+  margin: 25px auto;
+  color: #000;
   font-weight: 700;
 }
 
@@ -84,6 +85,7 @@
 }
 
 .gallery-description {
+  margin: 0 auto;
   color: #68716d;
   max-width: 500px;
   line-height: 1.7;
@@ -695,6 +697,7 @@
   width: 100%;
   margin-top: auto;
   padding: 14px 20px;
+  border: none;
   border-radius: 999px;
   background: #17201d;
   color: white;
@@ -702,6 +705,7 @@
   font-weight: 700;
   text-align: center;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .gallery-modal-use:hover {
@@ -800,5 +804,4 @@
     height: 32px;
   }
 }
-
 

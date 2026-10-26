@@ -1,6 +1,6 @@
-
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { createProject, getCurrentUser } from "../auth";
 import "./TemplateGallery.css";
 
 const portfolioTemplates = [
@@ -100,9 +100,7 @@ function PortfolioMockup({ template }) {
           <div className="gallery-demo-copy">
             <small>CREATIVE PORTFOLIO / 2026</small>
             <h2>{template.headline}</h2>
-            <p>
-              Exploring design, photography, and creative ideas.
-            </p>
+            <p>Exploring design, photography, and creative ideas.</p>
           </div>
 
           <div className="gallery-demo-hero-art">
@@ -117,9 +115,7 @@ function PortfolioMockup({ template }) {
               key={color}
               style={{ backgroundColor: color }}
             >
-              <span>
-                {["Branding", "Photography", "Creative Work"][index]}
-              </span>
+              <span>{["Branding", "Photography", "Creative Work"][index]}</span>
             </div>
           ))}
         </div>
@@ -129,6 +125,8 @@ function PortfolioMockup({ template }) {
 }
 
 function TemplateGallery() {
+  const navigate = useNavigate();
+  const username = getCurrentUser();
   const [selectedIndex, setSelectedIndex] = useState(null);
   const closeButtonRef = useRef(null);
   const previousFocusRef = useRef(null);
@@ -148,10 +146,29 @@ function TemplateGallery() {
   };
 
   const changePreview = (direction) => {
-    setSelectedIndex((current) =>
-      (current + direction + portfolioTemplates.length) %
-      portfolioTemplates.length
+    setSelectedIndex(
+      (current) =>
+        (current + direction + portfolioTemplates.length) %
+        portfolioTemplates.length,
     );
+  };
+
+  const handleUseTemplate = (template) => {
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+      navigate("/login", { state: { from: "/template-gallery" } });
+      return;
+    }
+
+    const project = createProject(currentUser, template);
+    navigate("/editor", {
+      state: {
+        template: template.name,
+        projectId: project.id,
+        isNewProject: true,
+      },
+    });
   };
 
   useEffect(() => {
@@ -168,23 +185,21 @@ function TemplateGallery() {
       }
 
       if (event.key === "ArrowRight") {
-        setSelectedIndex((current) =>
-          (current + 1) % portfolioTemplates.length
-        );
+        setSelectedIndex((current) => (current + 1) % portfolioTemplates.length);
       }
 
       if (event.key === "ArrowLeft") {
-        setSelectedIndex((current) =>
-          (current - 1 + portfolioTemplates.length) %
-          portfolioTemplates.length
+        setSelectedIndex(
+          (current) =>
+            (current - 1 + portfolioTemplates.length) % portfolioTemplates.length,
         );
       }
 
       if (event.key === "Tab" && modalRef.current) {
         const focusable = Array.from(
           modalRef.current.querySelectorAll(
-            'button:not([disabled]), a[href], input:not([disabled])'
-          )
+            'button:not([disabled]), a[href], input:not([disabled])',
+          ),
         );
 
         const first = focusable[0];
@@ -193,10 +208,7 @@ function TemplateGallery() {
         if (event.shiftKey && document.activeElement === first) {
           event.preventDefault();
           last?.focus();
-        } else if (
-          !event.shiftKey &&
-          document.activeElement === last
-        ) {
+        } else if (!event.shiftKey && document.activeElement === last) {
           event.preventDefault();
           first?.focus();
         }
@@ -214,7 +226,7 @@ function TemplateGallery() {
   return (
     <div className="template-gallery-page">
       <header className="gallery-navbar">
-        <Link className="gallery-logo" to="/">
+        <Link className="gallery-logo" to="/homepage">
           PortfolioBuilder<span>.</span>
         </Link>
 
@@ -228,25 +240,21 @@ function TemplateGallery() {
       </header>
 
       <main className="gallery-main">
-        <p className="gallery-eyebrow">
-          LET YOUR CREATIVITY BE SEEN
-        </p>
+        <p className="gallery-eyebrow">LET YOUR CREATIVITY BE SEEN</p>
 
         <h1>
           Find the perfect template for <em>you.</em>
         </h1>
 
         <p className="gallery-description">
-          Explore unique portfolio designs and find the perfect
-          starting point to showcase your work.
+          Explore unique portfolio designs and find the perfect starting point to
+          showcase your work.
         </p>
 
         <section className="gallery-templates-section">
           <div className="gallery-section-heading">
             <div>
-              <p className="gallery-eyebrow">
-                MADE FOR YOUR CREATIVITY
-              </p>
+              <p className="gallery-eyebrow">MADE FOR YOUR CREATIVITY</p>
               <h2>Explore Our Templates</h2>
               <p>Find a design that matches your creative style.</p>
             </div>
@@ -254,10 +262,7 @@ function TemplateGallery() {
 
           <div className="gallery-template-grid">
             {portfolioTemplates.map((template, index) => (
-              <article
-                className="gallery-template-card"
-                key={template.id}
-              >
+              <article className="gallery-template-card" key={template.id}>
                 <div
                   className={`gallery-template-thumbnail gallery-style-${template.style}`}
                   style={{ backgroundColor: template.background }}
@@ -275,18 +280,12 @@ function TemplateGallery() {
                     </div>
 
                     <div className="gallery-mini-projects">
-                      <div
-                        style={{ backgroundColor: template.colors[0] }}
-                      />
-                      <div
-                        style={{ backgroundColor: template.colors[1] }}
-                      />
+                      <div style={{ backgroundColor: template.colors[0] }} />
+                      <div style={{ backgroundColor: template.colors[1] }} />
                     </div>
                   </div>
 
-                  <span className="gallery-category-label">
-                    {template.category}
-                  </span>
+                  <span className="gallery-category-label">{template.category}</span>
                 </div>
 
                 <div className="gallery-template-info">
@@ -316,12 +315,13 @@ function TemplateGallery() {
                       Preview
                     </button>
 
-                    <Link
-                      to="/templates"
+                    <button
+                      type="button"
+                      onClick={() => handleUseTemplate(template)}
                       className="gallery-use-btn"
                     >
-                      Use Template →
-                    </Link>
+                      {username ? "Use Template →" : "Log in to use template"}
+                    </button>
                   </div>
                 </div>
               </article>
@@ -365,14 +365,10 @@ function TemplateGallery() {
                   <button
                     key={template.id}
                     type="button"
-                    className={
-                      selectedIndex === index ? "active" : ""
-                    }
+                    className={selectedIndex === index ? "active" : ""}
                     onClick={() => setSelectedIndex(index)}
                     aria-label={`Preview ${template.name}`}
-                    aria-current={
-                      selectedIndex === index ? "true" : undefined
-                    }
+                    aria-current={selectedIndex === index ? "true" : undefined}
                   />
                 ))}
               </div>
@@ -397,22 +393,13 @@ function TemplateGallery() {
             </div>
 
             <div className="gallery-modal-right">
-              <span className="gallery-modal-category">
-                {selectedTemplate.category}
-              </span>
+              <span className="gallery-modal-category">{selectedTemplate.category}</span>
 
-              <h2 id="gallery-modal-title">
-                {selectedTemplate.name}
-              </h2>
+              <h2 id="gallery-modal-title">{selectedTemplate.name}</h2>
 
-              <p className="gallery-modal-subtitle">
-                {selectedTemplate.description}
-              </p>
+              <p className="gallery-modal-subtitle">{selectedTemplate.description}</p>
 
-              <p
-                id="gallery-modal-description"
-                className="gallery-modal-description"
-              >
+              <p id="gallery-modal-description" className="gallery-modal-description">
                 {selectedTemplate.details}
               </p>
 
@@ -428,20 +415,17 @@ function TemplateGallery() {
 
               <div className="gallery-modal-colors">
                 {selectedTemplate.colors.map((color) => (
-                  <span
-                    key={color}
-                    style={{ backgroundColor: color }}
-                    title={color}
-                  />
+                  <span key={color} style={{ backgroundColor: color }} title={color} />
                 ))}
               </div>
 
-              <Link
-                to="/templates"
+              <button
+                type="button"
                 className="gallery-modal-use"
+                onClick={() => handleUseTemplate(selectedTemplate)}
               >
-                Use Template →
-              </Link>
+                {username ? "Use Template →" : "Log in to use template"}
+              </button>
             </div>
           </section>
         </div>
