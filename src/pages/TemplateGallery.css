@@ -1,3 +1,8 @@
+
+/* ========================================
+   PAGE AND HEADER
+======================================== */
+
 .template-gallery-page {
   min-height: 100vh;
   background: #ffffff;
@@ -5,13 +10,10 @@
   font-family: Arial, sans-serif;
 }
 
-/* HEADER — MATCHES HOMEPAGE */
-
 .gallery-navbar {
   width: min(1180px, calc(100% - 48px));
   min-height: 82px;
   margin: 0 auto;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,25 +48,14 @@
   padding: 11px 20px;
   border: 0;
   border-radius: 999px;
-
   color: white;
   background: #17201d;
   text-decoration: none;
 }
 
-/* RESPONSIVE HEADER */
-
-@media (max-width: 850px) {
-  .gallery-navbar nav a {
-    display: none;
-  }
-}
-
-@media (max-width: 600px) {
-  .gallery-navbar {
-    width: min(100% - 32px, 1180px);
-  }
-}
+/* ========================================
+   HERO
+======================================== */
 
 .gallery-main {
   padding: 90px 5%;
@@ -84,6 +75,7 @@
   letter-spacing: -3px;
   margin: 25px auto;
   color: #000;
+  font-weight: 700;
 }
 
 .gallery-main h1 em {
@@ -99,45 +91,8 @@
   line-height: 1.7;
 }
 
-.gallery-placeholder {
-  margin-top: 70px;
-  padding: 80px 30px;
-  background: white;
-  border: 1px solid #dde2da;
-  border-radius: 20px;
-  text-align: center;
-}
-
-.gallery-placeholder h2 {
-  font-size: 28px;
-}
-
-.gallery-placeholder p {
-  color: #68716d;
-}
-
-@media (max-width: 600px) {
-  .gallery-navbar {
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .gallery-navbar nav {
-    flex-wrap: wrap;
-    gap: 15px;
-  }
-
-  .gallery-main {
-    padding: 50px 5%;
-  }
-
-  .gallery-main h1 {
-    letter-spacing: -2px;
-  }
-}
-
 /* ========================================
-   TEMPLATE GALLERY SECTION
+   TEMPLATE GALLERY
 ======================================== */
 
 .gallery-templates-section {
@@ -163,10 +118,6 @@
   line-height: 1.55;
 }
 
-/* ========================================
-   TEMPLATE GRID
-======================================== */
-
 .gallery-template-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -177,22 +128,15 @@
   min-width: 0;
 }
 
-/* ========================================
-   TEMPLATE THUMBNAILS
-======================================== */
-
 .gallery-template-thumbnail {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-
   height: 310px;
   padding: 28px;
-
   overflow: hidden;
   border-radius: 14px;
-
   transition: transform 180ms ease;
 }
 
@@ -204,14 +148,11 @@
   width: 100%;
   height: 100%;
   padding: 16px;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   background: #fff;
   color: #17201d;
-
   overflow: hidden;
 }
 
@@ -220,7 +161,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-
   font-size: 8px;
   font-weight: 800;
   letter-spacing: 0.05em;
@@ -266,22 +206,15 @@
   position: absolute;
   top: 14px;
   right: 14px;
-
   padding: 7px 12px;
-
   border-radius: 999px;
   background: #fff;
-
   color: #17201d;
   font-size: 11px;
   font-weight: 700;
 }
 
-/* ========================================
-   SIX DIFFERENT TEMPLATE STYLES
-======================================== */
-
-/* 1. Minimal Studio */
+/* SIX CARD STYLES */
 
 .gallery-style-minimal .gallery-template-mini {
   background: #f8f7f3;
@@ -292,8 +225,6 @@
   font-size: 30px;
   font-weight: 400;
 }
-
-/* 2. Creative Zine */
 
 .gallery-style-zine .gallery-template-mini {
   background: #18314f;
@@ -311,8 +242,6 @@
   grid-template-columns: 1fr 1fr;
 }
 
-/* 3. Clean Portfolio */
-
 .gallery-style-clean .gallery-template-mini {
   background: #fff;
   border: 1px solid #dde2da;
@@ -327,8 +256,6 @@
   grid-template-columns: 1fr 1fr;
 }
 
-/* 4. Visual Story */
-
 .gallery-style-visual .gallery-template-mini {
   background: #1e596c;
   color: white;
@@ -341,8 +268,6 @@
   font-style: italic;
 }
 
-/* 5. Bold Type */
-
 .gallery-style-bold .gallery-template-mini {
   background: #e8795b;
   color: #183153;
@@ -354,8 +279,6 @@
   line-height: 0.85;
   text-transform: uppercase;
 }
-
-/* 6. Soft Grid */
 
 .gallery-style-grid .gallery-template-mini {
   background: #f8f7f3;
@@ -371,9 +294,7 @@
   gap: 12px;
 }
 
-/* ========================================
-   TEMPLATE INFORMATION
-======================================== */
+/* CARD INFORMATION */
 
 .gallery-template-info {
   padding-top: 18px;
@@ -413,10 +334,6 @@
   line-height: 1.55;
 }
 
-/* ========================================
-   BUTTONS
-======================================== */
-
 .gallery-template-actions {
   display: flex;
   gap: 10px;
@@ -427,29 +344,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  flex: 1;
   min-height: 43px;
   padding: 10px 18px;
-
   border-radius: 999px;
-
   font-family: inherit;
   font-size: 0.85rem;
   font-weight: 700;
   text-decoration: none;
-
   cursor: pointer;
 }
 
 .gallery-preview-btn {
-  flex: 1;
   border: 1px solid #17201d;
   background: transparent;
   color: #17201d;
 }
 
 .gallery-use-btn {
-  flex: 1;
   border: 1px solid #17201d;
   background: #17201d;
   color: white;
@@ -465,6 +377,342 @@
 }
 
 /* ========================================
+   PREVIEW MODAL
+======================================== */
+
+.gallery-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(20, 25, 23, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.gallery-modal {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 28px;
+  width: min(100%, 1050px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  border-radius: 18px;
+  background: #f7f8f3;
+  color: #17201d;
+  text-align: left;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 2;
+  border: none;
+  background: transparent;
+  color: #17201d;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.gallery-modal-left {
+  position: relative;
+  min-width: 0;
+  padding-bottom: 22px;
+}
+
+.gallery-large-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  padding: 24px;
+  background: var(--preview-bg);
+  border-radius: 8px;
+}
+
+.gallery-demo-site {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  min-height: 370px;
+  padding: 22px;
+  background: #fff;
+  color: #17201d;
+}
+
+.gallery-demo-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 10px;
+}
+
+.gallery-demo-hero {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  align-items: center;
+  gap: 18px;
+  flex: 1;
+}
+
+.gallery-demo-hero small {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.gallery-demo-hero h2 {
+  margin: 12px 0;
+  color: inherit;
+  font-size: clamp(24px, 3vw, 42px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.gallery-demo-hero p {
+  color: inherit;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.gallery-demo-hero-art {
+  display: grid;
+  place-items: center;
+  min-height: 160px;
+  background: linear-gradient(135deg, #d7e0cf, #eab6a7);
+  overflow: hidden;
+}
+
+.gallery-demo-art-shape {
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50% 50% 10% 50%;
+  background: rgba(255, 255, 255, 0.45);
+  transform: rotate(-25deg);
+}
+
+.gallery-demo-projects {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.gallery-demo-project {
+  display: flex;
+  align-items: flex-end;
+  min-height: 95px;
+  padding: 10px;
+}
+
+.gallery-demo-project span {
+  padding: 4px 6px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #17201d;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+/* SIX LARGE PREVIEW STYLES */
+
+.gallery-preview-minimal .gallery-demo-site {
+  background: #f8f7f3;
+}
+
+.gallery-preview-minimal .gallery-demo-hero h2 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+.gallery-preview-zine .gallery-demo-site {
+  background: #fff0e8;
+}
+
+.gallery-preview-zine .gallery-demo-hero h2 {
+  font-family: Georgia, serif;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.gallery-preview-zine .gallery-demo-hero-art {
+  background: linear-gradient(135deg, #e07a5f, #18314f);
+}
+
+.gallery-preview-clean .gallery-demo-hero h2 {
+  font-weight: 500;
+}
+
+.gallery-preview-visual .gallery-demo-site {
+  background: #1e596c;
+  color: white;
+}
+
+.gallery-preview-visual .gallery-demo-hero h2 {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.gallery-preview-bold .gallery-demo-site {
+  background: #e8795b;
+  color: #183153;
+}
+
+.gallery-preview-bold .gallery-demo-hero h2 {
+  font-size: clamp(30px, 4vw, 52px);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.gallery-preview-grid .gallery-demo-site {
+  background: #f4f2ff;
+}
+
+.gallery-preview-grid .gallery-demo-hero h2 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+/* MODAL CONTROLS */
+
+.gallery-modal-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.gallery-modal-pagination button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #c9ccc8;
+  cursor: pointer;
+}
+
+.gallery-modal-pagination button.active {
+  background: #17201d;
+}
+
+.gallery-modal-arrow {
+  position: absolute;
+  top: 45%;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid #dde2da;
+  border-radius: 50%;
+  background: white;
+  color: #17201d;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.gallery-modal-prev {
+  left: -16px;
+}
+
+.gallery-modal-next {
+  right: -16px;
+}
+
+.gallery-modal-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 10px 10px 0;
+}
+
+.gallery-modal-category {
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: #e8e6df;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.gallery-modal-right h2 {
+  margin: 15px 0 10px;
+  color: #17201d;
+  font-family: Georgia, serif;
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.gallery-modal-subtitle,
+.gallery-modal-description {
+  margin: 0 0 20px;
+  color: #68716d;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.gallery-modal-right h3 {
+  margin: 10px 0;
+  color: #17201d;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.gallery-modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+
+.gallery-modal-tags span {
+  padding: 7px 11px;
+  border: 1px solid #dde2da;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.gallery-modal-colors {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.gallery-modal-colors span {
+  width: 27px;
+  height: 27px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+}
+
+.gallery-modal-use {
+  display: block;
+  width: 100%;
+  margin-top: auto;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 999px;
+  background: #17201d;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.gallery-modal-use:hover {
+  background: #6847f5;
+}
+
+/* ========================================
    RESPONSIVE
 ======================================== */
 
@@ -474,7 +722,58 @@
   }
 }
 
+@media (max-width: 850px) {
+  .gallery-navbar nav a {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .gallery-modal {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .gallery-large-preview {
+    min-height: 300px;
+    padding: 15px;
+  }
+
+  .gallery-demo-site {
+    min-height: 280px;
+    padding: 15px;
+  }
+
+  .gallery-demo-hero-art {
+    min-height: 100px;
+  }
+
+  .gallery-modal-right {
+    padding: 0;
+  }
+}
+
 @media (max-width: 600px) {
+  .gallery-navbar {
+    width: min(100% - 32px, 1180px);
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .gallery-navbar nav {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .gallery-main {
+    padding: 50px 5%;
+  }
+
+  .gallery-main h1 {
+    letter-spacing: -2px;
+  }
+
   .gallery-template-grid {
     grid-template-columns: 1fr;
     gap: 35px;
@@ -487,4 +786,22 @@
   .gallery-templates-section {
     padding: 30px 0 70px;
   }
+
+  .gallery-modal-overlay {
+    padding: 10px;
+  }
+
+  .gallery-modal-right h2 {
+    font-size: 30px;
+  }
+
+  .gallery-demo-hero h2 {
+    font-size: 24px;
+  }
+
+  .gallery-modal-arrow {
+    width: 32px;
+    height: 32px;
+  }
 }
+
