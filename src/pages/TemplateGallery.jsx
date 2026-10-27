@@ -231,10 +231,8 @@ function TemplateGallery() {
         </Link>
 
         <nav aria-label="Main navigation">
-          <Link to="/template-gallery">Templates</Link>
-          <Link to="/#features">How it works</Link>
-          <Link className="gallery-start-button" to="/templates">
-            Start building
+          <Link className="gallery-start-button" to="/homepage">
+            Return home
           </Link>
         </nav>
       </header>
