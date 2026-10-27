@@ -9,7 +9,7 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  function handleSubmit(event) {
+  function handleSubmit(event) { // Handle username submission
     event.preventDefault();
     const normalizedUsername = username.trim();
 

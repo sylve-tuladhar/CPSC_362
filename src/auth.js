@@ -2,7 +2,7 @@ const USERS_KEY = "portfolio-builder-users";
 const SESSION_KEY = "portfolio-builder-session";
 const PROJECTS_KEY = "portfolio-builder-projects";
 
-function readUsers() {
+function readUsers() { // Read users from localStorage; localStorage is used to store data on your device
   try {
     const users = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
     return Array.isArray(users) ? users : [];
@@ -11,31 +11,31 @@ function readUsers() {
   }
 }
 
-export function getCurrentUser() {
+export function getCurrentUser() { // Get the current user from localStorage
   return localStorage.getItem(SESSION_KEY);
 }
 
-export function registerOrLogin(username) {
+export function registerOrLogin(username) { // Registration
   const normalizedUsername = username.trim();
   const users = readUsers();
 
   if (!users.includes(normalizedUsername)) {
-    localStorage.setItem(USERS_KEY, JSON.stringify([...users, normalizedUsername]));
+    localStorage.setItem(USERS_KEY, JSON.stringify([...users, normalizedUsername])); // Add the new user to the list of users
   }
 
   localStorage.setItem(SESSION_KEY, normalizedUsername);
   return normalizedUsername;
 }
 
-export function logout() {
+export function logout() { // Logout the current user
   localStorage.removeItem(SESSION_KEY);
 }
 
 export function getProjectsForUser(username) {
   try {
-    const projects = JSON.parse(localStorage.getItem(PROJECTS_KEY) || "[]");
+    const projects = JSON.parse(localStorage.getItem(PROJECTS_KEY) || "[]"); // Parse the projects from localStorage
     return Array.isArray(projects)
-      ? projects.filter((project) => project.username === username)
+      ? projects.filter((project) => project.username === username) // Filter projects by username
       : [];
   } catch {
     return [];
@@ -45,7 +45,7 @@ export function getProjectsForUser(username) {
 export function createProject(username, template) {
   const projects = JSON.parse(localStorage.getItem(PROJECTS_KEY) || "[]");
   const project = {
-    id: `${Date.now()}-${template.id}`,
+    id: `${Date.now()}-${template.id}`, // Unique ID for project
     username,
     template: template.name,
     createdAt: new Date().toISOString(),
@@ -58,7 +58,7 @@ export function createProject(username, template) {
 export function updateProjectName(projectId, username, name) {
   const projects = JSON.parse(localStorage.getItem(PROJECTS_KEY) || "[]");
   const normalizedName = name.trim();
-  const updatedProjects = projects.map((project) =>
+  const updatedProjects = projects.map((project) => // Update the name of the project if it matches the ID and username
     project.id === projectId && project.username === username
       ? { ...project, name: normalizedName }
       : project,
