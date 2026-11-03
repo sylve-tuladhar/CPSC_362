@@ -167,7 +167,7 @@ function TemplateGallery() {
             </button>
 
             <Link
-              to="/editor"
+              to={`/editor?template=${template.style}`}
               className="gallery-use-btn"
             >
               Use Template →

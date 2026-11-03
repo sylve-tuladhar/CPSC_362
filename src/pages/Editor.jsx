@@ -1,16 +1,20 @@
 import "./Editor.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const STORAGE_KEY = "portfolio-customization";
 
 const DEFAULT_SETTINGS = {
+  template: "minimal",
   name: "Alex Morgan",
   headline: "Designer & developer creating thoughtful digital experiences.",
   accent: "#6d28d9",
   background: "#ffffff",
+  fontColor: "#24212b",
   font: "Arial, sans-serif",
 };
+
+const TEMPLATE_STYLES = ["minimal", "zine", "clean", "visual", "bold", "grid"];
 
 const FONT_OPTIONS = [
   { label: "Arial", value: "Arial, sans-serif" },
@@ -22,10 +26,20 @@ const FONT_OPTIONS = [
   { label: "Courier New", value: "Courier New, monospace" },
 ];
 
-function readSettings() {
+function readSettings(requestedTemplate) {
   try {
     const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (!saved) return { settings: DEFAULT_SETTINGS, error: "" };
+    if (!saved) {
+      return {
+        settings: {
+          ...DEFAULT_SETTINGS,
+          template: TEMPLATE_STYLES.includes(requestedTemplate)
+            ? requestedTemplate
+            : DEFAULT_SETTINGS.template,
+        },
+        error: "",
+      };
+    }
 
     const parsed = JSON.parse(saved);
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
@@ -34,6 +48,11 @@ function readSettings() {
 
     return {
       settings: {
+        template: TEMPLATE_STYLES.includes(requestedTemplate)
+          ? requestedTemplate
+          : TEMPLATE_STYLES.includes(parsed.template)
+            ? parsed.template
+            : DEFAULT_SETTINGS.template,
         name: typeof parsed.name === "string" ? parsed.name : DEFAULT_SETTINGS.name,
         headline:
           typeof parsed.headline === "string"
@@ -48,6 +67,11 @@ function readSettings() {
           /^#[\da-f]{6}$/i.test(parsed.background)
             ? parsed.background
             : DEFAULT_SETTINGS.background,
+        fontColor:
+          typeof parsed.fontColor === "string" &&
+          /^#[\da-f]{6}$/i.test(parsed.fontColor)
+            ? parsed.fontColor
+            : DEFAULT_SETTINGS.fontColor,
         font: FONT_OPTIONS.some((option) => option.value === parsed.font)
           ? parsed.font
           : DEFAULT_SETTINGS.font,
@@ -63,7 +87,8 @@ function readSettings() {
 }
 
 function Editor() {
-  const [initialState] = useState(readSettings);
+  const [searchParams] = useSearchParams();
+  const [initialState] = useState(() => readSettings(searchParams.get("template")));
   const [settings, setSettings] = useState(initialState.settings);
   const [storageError, setStorageError] = useState(initialState.error);
 
@@ -146,6 +171,15 @@ function Editor() {
                 onChange={updateSetting}
               />
             </label>
+            <label className="customization-field color-field">
+              Font color
+              <input
+                name="fontColor"
+                type="color"
+                value={settings.fontColor}
+                onChange={updateSetting}
+              />
+            </label>
             <label className="customization-field">
               Font style
               <select name="font" value={settings.font} onChange={updateSetting}>
@@ -174,11 +208,12 @@ function Editor() {
           </form>
 
           <section
-            className="portfolio-preview"
+            className={`portfolio-preview preview-style-${settings.template}`}
             aria-label="Live portfolio preview"
             style={{
               "--preview-accent": settings.accent,
               "--preview-background": settings.background,
+              "--preview-text": settings.fontColor,
               "--preview-font": settings.font,
             }}
           >
@@ -197,6 +232,11 @@ function Editor() {
               <button className="preview-contact" type="button">
                 Get in touch
               </button>
+            </div>
+            <div className="preview-projects" aria-hidden="true">
+              <span className="preview-project preview-project-one" />
+              <span className="preview-project preview-project-two" />
+              <span className="preview-project preview-project-three" />
             </div>
             <p className="preview-caption">Live preview</p>
           </section>
