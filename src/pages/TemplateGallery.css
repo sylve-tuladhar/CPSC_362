@@ -141,7 +141,7 @@
 }
 
 .gallery-template-card:hover .gallery-template-thumbnail {
-  transform: translateY(-5px);
+  transform: translateY(0px);
 }
 
 .gallery-template-mini {
@@ -229,7 +229,7 @@
 .gallery-style-zine .gallery-template-mini {
   background: #18314f;
   color: #fff;
-  transform: rotate(-3deg);
+  transform: rotate(0deg);
 }
 
 .gallery-style-zine .gallery-mini-content h3 {

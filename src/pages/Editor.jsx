@@ -1,6 +1,6 @@
 import "./Editor.css";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 
 const STORAGE_KEY = "portfolio-customization";
 const PROJECT_STORAGE_PREFIX = "portfolio-customization-project-";
@@ -11,20 +11,64 @@ const DEFAULT_SETTINGS = {
   headline: "Designer & developer creating thoughtful digital experiences.",
   accent: "#6d28d9",
   background: "#ffffff",
+  fontColor: "#24212b",
   font: "Arial, sans-serif",
 };
 
-const MINIMAL_STUDIO_SETTINGS = {
-  template: "Minimal Studio",
-  name: "Alex Morgan",
-  headline: "Designer & developer creating thoughtful digital experiences.",
-  accent: "#9caf88",
-  background: "#eae8e3",
-  font: "Georgia, serif",
+const TEMPLATE_STYLE_BY_NAME = {
+  "Minimal Studio": "minimal",
+  "Creative Zine": "zine",
+  "Clean Portfolio": "clean",
+  "Visual Story": "visual",
+  "Bold Type": "bold",
+  "Soft Grid": "grid",
+  Portfolio: "minimal",
 };
+const TEMPLATE_STYLES = Object.values(TEMPLATE_STYLE_BY_NAME);
+const TEMPLATE_NAME_BY_STYLE = Object.fromEntries(
+  Object.entries(TEMPLATE_STYLE_BY_NAME)
+    .filter(([name]) => name !== "Portfolio")
+    .map(([name, style]) => [style, name]),
+);
 
 const TEMPLATE_DEFAULTS = {
-  "Minimal Studio": MINIMAL_STUDIO_SETTINGS,
+  "Minimal Studio": {
+    ...DEFAULT_SETTINGS,
+    template: "Minimal Studio",
+    accent: "#9caf88",
+    background: "#eae8e3",
+    font: "Georgia, serif",
+  },
+  "Creative Zine": {
+    ...DEFAULT_SETTINGS,
+    template: "Creative Zine",
+    accent: "#18314f",
+    background: "#f6dcd4",
+  },
+  "Clean Portfolio": {
+    ...DEFAULT_SETTINGS,
+    template: "Clean Portfolio",
+    accent: "#e9d8a6",
+    background: "#e6eae4",
+  },
+  "Visual Story": {
+    ...DEFAULT_SETTINGS,
+    template: "Visual Story",
+    accent: "#1e596c",
+    background: "#f7ded5",
+  },
+  "Bold Type": {
+    ...DEFAULT_SETTINGS,
+    template: "Bold Type",
+    accent: "#183153",
+    background: "#ede4dd",
+  },
+  "Soft Grid": {
+    ...DEFAULT_SETTINGS,
+    template: "Soft Grid",
+    accent: "#63818a",
+    background: "#e2e5ff",
+  },
   Portfolio: DEFAULT_SETTINGS,
 };
 
@@ -43,11 +87,19 @@ function getStorageKey(projectId) {
 }
 
 function getTemplateDefaults(templateName) {
-  return TEMPLATE_DEFAULTS[templateName] || DEFAULT_SETTINGS;
+  return TEMPLATE_DEFAULTS[templateName] || {
+    ...DEFAULT_SETTINGS,
+    template: templateName || DEFAULT_SETTINGS.template,
+  };
 }
 
 function isValidColor(value) {
   return typeof value === "string" && /^#[\da-f]{6}$/i.test(value);
+}
+
+function getTemplateStyle(templateName) {
+  if (TEMPLATE_STYLES.includes(templateName)) return templateName;
+  return TEMPLATE_STYLE_BY_NAME[templateName] || "minimal";
 }
 
 function getSavedSettings(parsed, templateName) {
@@ -70,43 +122,66 @@ function getSavedSettings(parsed, templateName) {
     background: isValidColor(parsed.background)
       ? parsed.background
       : templateDefaults.background,
+    fontColor: isValidColor(parsed.fontColor)
+      ? parsed.fontColor
+      : templateDefaults.fontColor,
     font: FONT_OPTIONS.some((option) => option.value === parsed.font)
       ? parsed.font
       : templateDefaults.font,
   };
 }
 
-function readSettings(templateName, projectId, isNewProject) {
-  const templateDefaults = getTemplateDefaults(templateName);
+function readSettings(templateName, templateStyle, projectId, isNewProject) {
+  const resolvedTemplate =
+    templateName || TEMPLATE_NAME_BY_STYLE[templateStyle] || undefined;
 
   if (isNewProject) {
-    return { settings: templateDefaults, error: "" };
+    return {
+      settings: getTemplateDefaults(resolvedTemplate),
+      error: "",
+    };
   }
 
   try {
     const saved = window.localStorage.getItem(getStorageKey(projectId));
-    if (!saved) return { settings: templateDefaults, error: "" };
+    if (!saved) {
+      return {
+        settings: getTemplateDefaults(resolvedTemplate),
+        error: "",
+      };
+    }
 
     const parsed = JSON.parse(saved);
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
       throw new Error("Saved customization data is invalid.");
     }
 
-    return { settings: getSavedSettings(parsed, templateName), error: "" };
+    return {
+      settings: getSavedSettings(parsed, resolvedTemplate),
+      error: "",
+    };
   } catch (error) {
     return {
-      settings: templateDefaults,
+      settings: getTemplateDefaults(resolvedTemplate),
       error: `Could not load saved customizations: ${error.message}`,
     };
   }
 }
 
 function Editor() {
+  const [searchParams] = useSearchParams();
   const location = useLocation();
-  const { template: selectedTemplate, projectId, isNewProject } =
+  const {
+    template: selectedTemplate,
+    templateStyle: selectedTemplateStyle,
+    projectId,
+    isNewProject,
+  } =
     location.state || {};
+  const requestedStyle =
+    searchParams.get("template") || selectedTemplateStyle;
   const [initialState] = useState(() =>
-    readSettings(selectedTemplate, projectId, isNewProject),
+    readSettings(selectedTemplate, requestedStyle, projectId, isNewProject),
   );
   const [settings, setSettings] = useState(initialState.settings);
   const [storageError, setStorageError] = useState(initialState.error);
@@ -130,10 +205,11 @@ function Editor() {
   }
 
   function resetSettings() {
-    saveSettings(getTemplateDefaults(selectedTemplate));
+    saveSettings(getTemplateDefaults(selectedTemplate || settings.template));
   }
 
   const isMinimalStudio = settings.template === "Minimal Studio";
+  const previewStyle = getTemplateStyle(settings.template);
 
   return (
     <section
@@ -209,6 +285,15 @@ function Editor() {
                 onChange={updateSetting}
               />
             </label>
+            <label className="customization-field color-field">
+              Font color
+              <input
+                name="fontColor"
+                type="color"
+                value={settings.fontColor}
+                onChange={updateSetting}
+              />
+            </label>
             <label className="customization-field">
               Font style
               <select
@@ -243,13 +328,14 @@ function Editor() {
           </form>
 
           <section
-            className={`portfolio-preview ${
+            className={`portfolio-preview preview-style-${previewStyle} ${
               isMinimalStudio ? "minimal-studio-preview" : ""
             }`}
             aria-label="Live portfolio preview"
             style={{
               "--preview-accent": settings.accent,
               "--preview-background": settings.background,
+              "--preview-text": settings.fontColor,
               "--preview-font": settings.font,
             }}
           >
@@ -284,6 +370,13 @@ function Editor() {
                 {isMinimalStudio ? "View selected work" : "Get in touch"}
               </button>
             </div>
+            {!isMinimalStudio && (
+              <div className="preview-projects" aria-hidden="true">
+                <span className="preview-project preview-project-one" />
+                <span className="preview-project preview-project-two" />
+                <span className="preview-project preview-project-three" />
+              </div>
+            )}
             <p className="preview-caption">Live preview</p>
           </section>
         </div>

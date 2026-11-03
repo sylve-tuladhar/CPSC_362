@@ -165,6 +165,7 @@ function TemplateGallery() {
     navigate("/editor", {
       state: {
         template: template.name,
+        templateStyle: template.style,
         projectId: project.id,
         isNewProject: true,
       },
