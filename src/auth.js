@@ -1,6 +1,11 @@
-const USERS_KEY = "portfolio-builder-users";
-const SESSION_KEY = "portfolio-builder-session";
-const PROJECTS_KEY = "portfolio-builder-projects";
+const USERS_KEY = "portfolio-builder-users"; // List of users
+const SESSION_KEY = "portfolio-builder-session"; // Currently logged-in user
+const PROJECTS_KEY = "portfolio-builder-projects"; // List of unique projects
+
+/* 
+auth.js is responsible for handling user authentication and
+project management with localStorage. Uses parsing and stringify to store and retrieve data.
+*/
 
 function readUsers() { // Read users from localStorage; localStorage is used to store data on your device
   try {
