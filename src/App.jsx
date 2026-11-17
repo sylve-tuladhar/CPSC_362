@@ -10,7 +10,6 @@ import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 function App() {
-  // Temporary container for the app content
   return (
     <BrowserRouter>
     <Routes>

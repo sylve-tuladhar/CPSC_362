@@ -31,7 +31,7 @@ function Login() {
         <p className="eyebrow">Welcome back</p>
         <h1>Log in to your workspace.</h1>
         <p className="login-description">
-          Enter a username to register or return to your classroom portfolio.
+          Enter a username to register or return to your portfolio.
         </p>
 
         <form onSubmit={handleSubmit}>
